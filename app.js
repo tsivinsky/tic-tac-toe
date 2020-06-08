@@ -16,9 +16,6 @@ btnRestart.addEventListener("click", restart);
 
 // Function for restart the game
 function restart() {
-  // Clear the message
-  message.innerHTML = "";
-
   // Clear winner message
   winner.innerHTML = "";
   winner.style.display = "none";
@@ -39,15 +36,13 @@ cells.forEach((cell, i) => {
     if (!playable) return;
 
     // Check for played cell
-    if (isPlayed(cell)) {
-      message.innerHTML = "This cell already played";
-      return;
-    } else {
-      message.innerHTML = "";
-    }
+    if (isPlayed(cell)) return;
 
     // Play the cell
-    cell.innerHTML = playNow === "Cross" ? "X" : "O";
+    cell.innerHTML =
+      playNow === "Cross"
+        ? "<img src='./images/cross.svg' />"
+        : "<img src='./images/circle.svg' />";
 
     // Check for no win
     let cellsArray = [];
@@ -60,7 +55,7 @@ cells.forEach((cell, i) => {
     }
 
     // Check for win
-    if (isWin(cell, i)) {
+    if (isWin(cell)) {
       winner.style.display = "flex";
       winner.innerHTML = `${playNow} wins!`;
       playable = false;
@@ -70,21 +65,41 @@ cells.forEach((cell, i) => {
       playNow = player.innerHTML;
     }
   });
+
+  cell.addEventListener("mouseenter", function () {
+    if (cell.innerHTML !== "") return;
+
+    cell.style.opacity = "0.5";
+    cell.style.backgroundImage =
+      playNow === "Cross"
+        ? "url(./images/cross.svg)"
+        : "url(./images/circle.svg)";
+  });
+
+  cell.addEventListener("mouseleave", function () {
+    cell.style.opacity = "1";
+    cell.style.backgroundImage = "";
+  });
 });
 
 // Function for check for played cell
 function isPlayed(cell) {
-  if (cell.innerHTML !== "") return cell.innerHTML;
+  if (cell.innerHTML !== "")
+    return cell.innerHTML.includes("cross") ? "X" : "O";
   else return false;
 }
 
 // Function for check for win after turn
-function isWin(cell, index) {
+function isWin(cell) {
   const position = cell.dataset.position;
   const [x, y] = position.split("-");
 
   let playedBoard = [];
-  cells.forEach((cell) => playedBoard.push(cell.innerHTML));
+  cells.forEach((cell) =>
+    playedBoard.push(
+      cell.innerHTML.includes("cross") ? "X" : cell.innerHTML === "" ? "" : "O"
+    )
+  );
   const combo = playNow === "Cross" ? "XXX" : "OOO";
 
   // Check for win by Y
@@ -137,9 +152,21 @@ function isWin(cell, index) {
 
 // Function for value in cells by its indexes
 function checkCell(indexes) {
-  const a = cells[indexes[0]].innerHTML;
-  const b = cells[indexes[1]].innerHTML;
-  const c = cells[indexes[2]].innerHTML;
+  const a = cells[indexes[0]].innerHTML.includes("cross")
+    ? "X"
+    : cells[indexes[0]].innerHTML === ""
+    ? ""
+    : "O";
+  const b = cells[indexes[1]].innerHTML.includes("cross")
+    ? "X"
+    : cells[indexes[1]].innerHTML === ""
+    ? ""
+    : "O";
+  const c = cells[indexes[2]].innerHTML.includes("cross")
+    ? "X"
+    : cells[indexes[2]].innerHTML === ""
+    ? ""
+    : "O";
 
   return a + b + c;
 }
