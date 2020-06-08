@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tic Tac Toe</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="title">Tic Tac Toe</h1>
+      <div class="board">
+        <div class="cell" data-position="left-top"></div>
+        <div class="cell" data-position="center-top"></div>
+        <div class="cell" data-position="right-top"></div>
+        <div class="cell" data-position="left-center"></div>
+        <div class="cell" data-position="center-center"></div>
+        <div class="cell" data-position="right-center"></div>
+        <div class="cell" data-position="left-bottom"></div>
+        <div class="cell" data-position="center-bottom"></div>
+        <div class="cell" data-position="right-bottom"></div>
+      </div>
+      <div class="bottom">
+        <div class="player">
+          <h3>Playing now:</h3>
+          <h3>Cross</h3>
+        </div>
+        <div class="message"></div>
+        <button class="btn-restart">Restart</button>
+      </div>
+      <div class="winner-message"></div>
+    </div>
+  </body>
+</html>
