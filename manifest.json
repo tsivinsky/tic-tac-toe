@@ -1,0 +1,8 @@
+{
+  "name": "Tic Tac Toe",
+  "shortname": "Tic Tac Toe",
+  "description": "Tic Tac Toe game",
+  "short_url": "/",
+  "display": "standalone",
+  "background_color": "#fff"
+}
